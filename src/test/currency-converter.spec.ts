@@ -23,4 +23,14 @@ describe('', () => {
     expect(result.amount).be.not.null;
     expect(result.currency).be.equals(currencyReq.dest_currency);
   });
+  it('Test currency error if currency are not correct', async () => {
+    const currencyConverter = new CurrencyConverter();
+    await currencyConverter.init();
+    const currencyReq: CurrencyRequest = {
+        amount: 134,
+        src_currency: "DUS",
+        dest_currency: "EUR"
+    };
+    expect(() => currencyConverter.convertCurrencyFromRequest(currencyReq)).to.throw();
+  });
 });
