@@ -58,7 +58,7 @@ app.get("/convert", (req, res) => {
 
 function startListening() {
   app.listen(3000, () => {
-    console.log("App is listening using port 3000.");
+    console.log("App is listening on port 3000.");
   });
 }
 
