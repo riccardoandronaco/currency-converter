@@ -41,7 +41,7 @@ interface CurrencyRequest{
     amount: number,
     src_currency: string,
     dest_currency: string
-    reference_date: string
+    reference_date?: string //Optional - can be omitted, in this case the latest exchange rates will be applied
 }
 
 interface CurrencyResponse {
@@ -52,4 +52,10 @@ interface CurrencyResponse {
 ```
 //This example will convert an amount of money equals to 15.32EUR to USD.
 http://localhost:3000/convert?amount=15.32&src_currency=USD&dest_currency=EUR&reference_date=2020-03-11
+```
+
+## Unit tests execution
+For this project I have used mocha to implement some unit tests. To execute it it's necessary to run the following command:
+```ps1
+npm run test
 ```
