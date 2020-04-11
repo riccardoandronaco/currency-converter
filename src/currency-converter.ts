@@ -23,8 +23,9 @@ export class CurrencyConverter {
     get currencyListByTime() {
         return this._currencyListByTime;
     }
+
     public async init() {
-        this._currencyListByTime = await this.populateCurrencyRatesList();
+        await this.populateCurrencyRatesList();
     }
 
     public convertCurrencyFromRequest(request: CurrencyRequest): CurrencyResponse{
@@ -66,6 +67,22 @@ export class CurrencyConverter {
         return result;
     };
 
+    public populateCurrencyRates(xml: string){
+        var doc = new DOMParser().parseFromString(xml);
+        var d = new Date();
+        d.setDate(d.getDate() - 1);
+        const times = xpath.select("gesmes:Envelope//*[local-name()='Cube']/@time", doc) as Node[];
+        let cListByTime: { [date: string]: { [currency: string]: number } } = {};
+        times.forEach(time => {
+            const timeValue = time.nodeValue;
+            let currencyRates = xpath.select(`gesmes:Envelope/*[local-name()='Cube']/*[local-name()='Cube' and @time='${timeValue}']//*[local-name()='Cube']`, doc) as any;
+            let currencyList = currencyRates.reduce((acc: any, cur: any) => ({ ...acc, [cur.getAttribute("currency")]: parseFloat(cur.getAttribute("rate")) }), { "EUR": 1 });
+            cListByTime[timeValue] = currencyList;
+        });
+        console.log("Done.");
+        this._currencyListByTime = cListByTime;
+    }
+
     private convert(src: number, dest: number, value: number) {
         return parseFloat(((value / src) * (dest)).toFixed(2));
     }
@@ -79,19 +96,8 @@ export class CurrencyConverter {
                     xml += data;
                 });
                 res.on('end', (data: string | Uint8Array) => {
-                    var doc = new DOMParser().parseFromString(xml);
-                    var d = new Date();
-                    d.setDate(d.getDate() - 1);
-                    const times = xpath.select("gesmes:Envelope//*[local-name()='Cube']/@time", doc) as Node[];
-                    let cListByTime: { [date: string]: { [currency: string]: number } } = {};
-                    times.forEach(time => {
-                        const timeValue = time.nodeValue;
-                        let currencyRates = xpath.select(`gesmes:Envelope/*[local-name()='Cube']/*[local-name()='Cube' and @time='${timeValue}']//*[local-name()='Cube']`, doc) as any;
-                        let currencyList = currencyRates.reduce((acc: any, cur: any) => ({ ...acc, [cur.getAttribute("currency")]: parseFloat(cur.getAttribute("rate")) }), { "EUR": 1 });
-                        cListByTime[timeValue] = currencyList;
-                    });
-                    resolve(cListByTime);
-                    console.log("Done.");
+                    this.populateCurrencyRates(xml);
+                    resolve();
                 });
                 res.on('error', data => {
                     reject(data);

@@ -4,7 +4,7 @@
   "description": "A currency converter library for NodeJs application",
   "main": "dist/app.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.spec.ts --no-timeout --exit",
+    "test": "mocha --no-timeout --exit -r ts-node/register src/**/*.spec.ts",
     "build": "npm install && npm run tsc",
     "watch": "tsc --watch",
     "tsc": "tsc",
@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "moment": "^2.24.0",
+    "path": "^0.12.7",
     "typescript": "^3.8.3",
     "xmldom": "^0.3.0",
     "xpath": "0.0.27",

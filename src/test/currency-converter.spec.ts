@@ -2,11 +2,15 @@ import { expect } from 'chai';
 import 'mocha';
 import { CurrencyConverter } from '../currency-converter';
 import { CurrencyRequest } from '../models/CurrencyRequest';
+import * as fs from 'fs';
+import * as path from 'path';
+
 
 describe('', () => {
   it('Currency rates should be filled after init', async () => {
     const currencyConverter = new CurrencyConverter();
-    await currencyConverter.init();
+    const xml = fs.readFileSync(path.join(__dirname, './currency-test.xml'), 'utf8');
+    await currencyConverter.populateCurrencyRates(xml);
     expect(currencyConverter.currencyListByTime).be.not.null;
     expect(Object.keys(currencyConverter.currencyListByTime)).length.greaterThan(0);
   });
