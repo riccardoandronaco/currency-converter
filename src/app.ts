@@ -11,9 +11,9 @@ app.get("/", (req, res) => {
 
 app.get("/convert", (req, res) => {
   if (req && req.query) {
-    const request = req.query as CurrencyRequest;
+    const request = req.query;
     try {
-      const result = currencyConverter.convertCurrencyFromRequest(request);
+      const result = currencyConverter.convertCurrencyFromRequest(request as any);
       res.status(200);
       res.send(result);
     } catch (error) {
