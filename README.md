@@ -1,3 +1,4 @@
+![Node.js CI](https://github.com/riccardoandronaco/currency-converter/workflows/Node.js%20CI/badge.svg)
 # How to build and run the project
 
 ## Execute the application using the node and typescript installed in local machine
