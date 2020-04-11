@@ -1,7 +1,7 @@
 {
-  "name": "igenius-currency-converter",
+  "name": "currency-converter",
   "version": "1.0.0",
-  "description": "A currency converter for IGenius back-end assignment",
+  "description": "A currency converter library for NodeJs application",
   "main": "dist/app.js",
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",

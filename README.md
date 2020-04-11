@@ -24,11 +24,11 @@ In order to install the project as a docker package the project contains a Docke
 The commands to execute are:
 - build the docker image
 ```ps1
-docker build -t igenius-currency-converter .
+docker build -t currency-converter .
 ```
 - run a container that user the builded docker image
 ```ps1
-docker run -p 3000:3000 igenius-currency-converter
+docker run -p 3000:3000 currency-converter
 ```
 
 the application will listen to requests at port 3000.

@@ -1,7 +1,7 @@
 /**
  * Currency Converter class
  * Author Riccardo Andronaco
- * IGenius application
+ * A NodeJs application: Currency Converter application
  */
 
 import * as xpath from 'xpath-ts';
