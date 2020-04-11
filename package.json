@@ -1,14 +1,24 @@
 {
-  "name": "currency-converter",
+  "name": "ra-currency-converter",
   "version": "1.0.0",
   "description": "A currency converter library for NodeJs application",
-  "main": "dist/app.js",
+  "main": "lib/app.js",
+  "types": "lib/app.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riccardoandronaco/currency-converter.git"
+  },
   "scripts": {
     "test": "mocha --no-timeout --exit -r ts-node/register src/**/*.spec.ts",
-    "build": "npm install && npm run tsc",
+    "build": "tsc",
     "watch": "tsc --watch",
-    "tsc": "tsc",
-    "start": "node ./dist/app.js"
+    "start": "node ./dist/app.js",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "keywords": [
     "currency",
@@ -32,6 +42,10 @@
     "@types/node": "^13.11.1",
     "chai": "^4.2.0",
     "mocha": "^7.1.1",
-    "ts-node": "^8.8.2"
-  }
+    "prettier": "^2.0.4",
+    "ts-node": "^8.8.2",
+    "tslint": "^6.1.1",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "files": ["lib/**/*"]
 }

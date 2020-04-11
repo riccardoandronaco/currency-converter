@@ -1,15 +1,15 @@
-import express from "express";
-import { CurrencyRequest } from "./models/CurrencyRequest";
-import { CurrencyConverter } from "./currency-converter";
+import * as express from 'express';
+import { CurrencyRequest } from './models/CurrencyRequest';
+import { CurrencyConverter } from './currency-converter';
 
-let app = express();
+const app = express();
 let currencyConverter: CurrencyConverter;
 
-app.get("/", (req, res) => {
-  res.send("Welcome to currency converter, use /convert to use this app.");
+app.get('/', (req, res) => {
+  res.send('Welcome to currency converter, use /convert to use this app.');
 });
 
-app.get("/convert", (req, res) => {
+app.get('/convert', (req, res) => {
   if (req && req.query) {
     const request = req.query;
     try {
@@ -22,16 +22,16 @@ app.get("/convert", (req, res) => {
     }
   } else {
     res.status(422);
-  };
+  }
 });
 
 async function startup() {
-  console.log("Startup process..");
+  console.log('Startup process..');
   try {
     currencyConverter = new CurrencyConverter();
     await currencyConverter.init();
     app.listen(3000, () => {
-      console.log("App is listening on port 3000.");
+      console.log('App is listening on port 3000.');
     });
   } catch (error) {
     console.log(error);

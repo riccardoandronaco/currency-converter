@@ -5,7 +5,6 @@ import { CurrencyRequest } from '../models/CurrencyRequest';
 import * as fs from 'fs';
 import * as path from 'path';
 
-
 describe('', async () => {
   const currencyConverter = new CurrencyConverter();
   const xml = fs.readFileSync(path.join(__dirname, './currency-test.xml'), 'utf8');
@@ -18,9 +17,9 @@ describe('', async () => {
 
   it('Test the convert function', async () => {
     const currencyReq: CurrencyRequest = {
-        amount: 26.54,
-        src_currency: "EUR",
-        dest_currency: "USD"
+      amount: 26.54,
+      src_currency: 'EUR',
+      dest_currency: 'USD',
     };
     const result = currencyConverter.convertCurrencyFromRequest(currencyReq);
     expect(result).be.not.null;
@@ -30,11 +29,10 @@ describe('', async () => {
 
   it('Test currency error if currency are not correct', async () => {
     const currencyReq: CurrencyRequest = {
-        amount: 134,
-        src_currency: "DUS",
-        dest_currency: "EUR"
+      amount: 134,
+      src_currency: 'DUS',
+      dest_currency: 'EUR',
     };
     expect(() => currencyConverter.convertCurrencyFromRequest(currencyReq)).to.throw();
   });
-
 });
